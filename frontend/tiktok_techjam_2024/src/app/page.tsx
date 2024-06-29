@@ -1,33 +1,81 @@
 "use client";
-
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
     const router = useRouter();
+    const [isHidden, setIsHidden] = useState(true);
+
+    if (isHidden) {
+        setTimeout(() => {
+            setIsHidden(false);
+        }, 1000);
+    }
+
+    const handleDemoClick = () => {
+        setIsHidden(true);
+
+        setTimeout(() => {
+            router.push("/login");
+        }, 1000);
+    };
 
     return (
         <>
-            <main className="w-screen h-screen flex items-center justify-center">
-                {/* Demo Button - START */}
-                <button
-                    className="border relative group ease-in-out"
-                    onClick={() => router.push("/login")}
+            <main
+                className="w-screen h-screen 
+                    flex flex-col items-center justify-center"
+            >
+                {/* Fade Effect - START */}
+                <div
+                    className={`transition duration-700 
+                        flex flex-col items-center justify-center 
+                        ${isHidden ? "opacity-0" : "opacity-100"}
+                        `}
                 >
-                    {/* Demo Button Background - START */}
-                    <div className="border absolute w-full h-full left-0 top-0 -z-10 flex">
-                        <div className="group-hover:bg-[#ff0050] opacity-75 w-1/5 h-full transition duration-300"></div>
-                        <div className="group-hover:bg-[#000000] opacity-75 w-3/5 h-full transition duration-300"></div>
-                        <div className="group-hover:bg-[#00f2ea] opacity-75 w-1/5 h-full transition duration-300"></div>
-                    </div>
-                    {/* Demo Button Background - END */}
+                    <>
+                        {/* Logo */}
+                        <div className={`text-4xl font-bold mb-2`}>
+                            Welcome to TikTok TechJam 2024
+                        </div>
 
-                    {/* Demo Button Text - START */}
-                    <div className="py-4 px-8 z-10">Start Demo</div>
-                    {/* Demo Button Text - END */}
-                </button>
+                        {/* Subtitle */}
+                        <div className="text-2xl text-center mb-8">
+                            Problem Statement On: Innovating Privacy
+                        </div>
 
-                {/* Demo Button - END */}
+                        {/* Description */}
+                        <div className="text-lg text-center mb-8">
+                            Click the button below to start the demo.
+                        </div>
+                    </>
+
+                    {/* Demo Button - START */}
+                    <button
+                        className="border relative group ease-in-out"
+                        onClick={handleDemoClick}
+                        disabled={isHidden}
+                    >
+                        {/* Demo Button Background - START */}
+                        <div className="border absolute w-full h-full left-0 top-0 -z-10 flex">
+                            <div className="group-hover:bg-[#ff0050] w-1/6 h-full transition duration-700"></div>
+                            <div className="group-hover:bg-[#000000] w-4/6 h-full transition duration-700">
+                                <div className="group-hover:bg-[#ff0050] w-full h-1/6 transition duration-700"></div>
+                                <div className="group-hover:bg-[#000000] w-full h-4/6 transition duration-700"></div>
+                                <div className="group-hover:bg-[#00f2ea] w-full h-1/6 transition duration-700"></div>
+                            </div>
+                            <div className="group-hover:bg-[#00f2ea] w-1/6 h-full transition duration-700"></div>
+                        </div>
+                        {/* Demo Button Background - END */}
+
+                        {/* Demo Button Text - START */}
+                        <div className="py-6 px-7 z-10">Start Demo</div>
+                        {/* Demo Button Text - END */}
+                    </button>
+
+                    {/* Demo Button - END */}
+                </div>
+                {/* Fade Effect - END */}
             </main>
         </>
     );
