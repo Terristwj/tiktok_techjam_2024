@@ -5,19 +5,27 @@ import { useState } from "react";
 export default function Home() {
     const router = useRouter();
     const [isHidden, setIsHidden] = useState(true);
+    const [isDemoClicked, setIsDemoClicked] = useState(false);
 
-    if (isHidden) {
+    // For the fade effect
+    const timeoutDuration = 1000;
+
+    // For the demo button background
+    const transitionDuration = 700;
+
+    if (isHidden && !isDemoClicked) {
         setTimeout(() => {
             setIsHidden(false);
-        }, 1000);
+        }, timeoutDuration);
     }
 
     const handleDemoClick = () => {
         setIsHidden(true);
+        setIsDemoClicked(true);
 
         setTimeout(() => {
             router.push("/login");
-        }, 1000);
+        }, timeoutDuration);
     };
 
     return (
@@ -57,14 +65,30 @@ export default function Home() {
                         disabled={isHidden}
                     >
                         {/* Demo Button Background - START */}
-                        <div className="border absolute w-full h-full left-0 top-0 -z-10 flex">
-                            <div className="group-hover:bg-[#ff0050] w-1/6 h-full transition duration-700"></div>
-                            <div className="group-hover:bg-[#000000] w-4/6 h-full transition duration-700">
-                                <div className="group-hover:bg-[#ff0050] w-full h-1/6 transition duration-700"></div>
-                                <div className="group-hover:bg-[#000000] w-full h-4/6 transition duration-700"></div>
-                                <div className="group-hover:bg-[#00f2ea] w-full h-1/6 transition duration-700"></div>
+                        <div
+                            className="border absolute flex
+                                w-full h-full 
+                                left-0 top-0 -z-10"
+                        >
+                            <div
+                                className={`group-hover:bg-[#ff0050] w-1/6 h-full transition duration-${transitionDuration}`}
+                            />
+                            <div
+                                className={`group-hover:bg-[#000000] w-4/6 h-full transition duration-${transitionDuration}`}
+                            >
+                                <div
+                                    className={`group-hover:bg-[#ff0050] w-full h-1/6 transition duration-${transitionDuration}`}
+                                />
+                                <div
+                                    className={`group-hover:bg-[#000000] w-full h-4/6 transition duration-${transitionDuration}`}
+                                />
+                                <div
+                                    className={`group-hover:bg-[#00f2ea] w-full h-1/6 transition duration-${transitionDuration}`}
+                                />
                             </div>
-                            <div className="group-hover:bg-[#00f2ea] w-1/6 h-full transition duration-700"></div>
+                            <div
+                                className={`group-hover:bg-[#00f2ea] w-1/6 h-full transition duration-${transitionDuration}`}
+                            ></div>
                         </div>
                         {/* Demo Button Background - END */}
 
