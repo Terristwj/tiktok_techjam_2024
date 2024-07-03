@@ -36,14 +36,14 @@ export default function Home() {
             >
                 {/* Fade Effect - START */}
                 <div
-                    className={`transition duration-700 
+                    className={`transition duration-${transitionDuration}
                         flex flex-col items-center justify-center 
                         ${isHidden ? "opacity-0" : "opacity-100"}
-                        `}
+                    `}
                 >
                     <>
                         {/* Logo */}
-                        <div className={`text-4xl font-bold mb-2`}>
+                        <div className="text-4xl font-bold text-center mb-2">
                             Welcome to TikTok TechJam 2024
                         </div>
 
