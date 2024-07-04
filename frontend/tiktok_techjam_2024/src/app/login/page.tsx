@@ -1,8 +1,11 @@
 "use client";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import ConnectWalletButton from "../components/ConnectWalletButton";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+    const router = useRouter();
     return (
         <div
             className="px-5 py-8 
@@ -38,6 +41,8 @@ export default function Login() {
             />
 
             <h1>Hello world</h1>
+            <ConnectWalletButton></ConnectWalletButton>
+            <button onClick={() => {router.push("/home");}}>Log In</button>
         </div>
     );
 }
