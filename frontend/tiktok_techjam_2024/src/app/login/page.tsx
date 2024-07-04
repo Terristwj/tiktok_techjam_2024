@@ -9,10 +9,33 @@ export default function Login() {
                 max-w-4xl m-auto
                 flex flex-col gap-4"
         >
-            
-            <TextField id="outlined-required" label="Name" fullWidth />
-            <TextField id="outlined-required" label="Birthday" fullWidth />
-            <TextField id="outlined-required" label="Location" fullWidth />
+            <TextField
+                id="outlined-required"
+                label="Account Id"
+                required
+                fullWidth
+            />
+            <TextField
+                id="outlined-required"
+                label="Nickname"
+                required
+                fullWidth
+            />
+            <TextField
+                id="outlined-required"
+                label="Likelihood to Watch"
+                fullWidth
+            />
+            <TextField
+                id="outlined-required"
+                label="Likelihood to Comment"
+                fullWidth
+            />
+            <TextField
+                id="outlined-required"
+                label="Likelihood to Like"
+                fullWidth
+            />
 
             <h1>Hello world</h1>
         </div>

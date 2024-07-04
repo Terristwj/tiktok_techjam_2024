@@ -8,6 +8,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 const darkTheme = createTheme({
     palette: {
         mode: "dark",
+        background: {
+            default: "#000000",
+        },
     },
 });
 
@@ -22,9 +25,6 @@ export default function LoginLayout({
 
     // For the fade effect
     const timeoutDuration = 700;
-
-    // For the demo button background
-    const transitionDuration = 500;
 
     if (isHidden && !isBackClicked) {
         setTimeout(() => {
@@ -42,7 +42,8 @@ export default function LoginLayout({
     };
     return (
         <section
-            className={`transition duration-${transitionDuration}
+            className={`h-screen w-screen
+                transition duration-500
                 ${isHidden ? "opacity-0" : "opacity-100"}
             `}
         >

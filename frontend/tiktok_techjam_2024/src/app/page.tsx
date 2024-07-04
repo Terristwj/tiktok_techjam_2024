@@ -10,9 +10,6 @@ export default function Home() {
     // For the fade effect
     const timeoutDuration = 1000;
 
-    // For the demo button background
-    const transitionDuration = 700;
-
     if (isHidden && !isDemoClicked) {
         setTimeout(() => {
             setIsHidden(false);
@@ -36,7 +33,7 @@ export default function Home() {
             >
                 {/* Fade Effect - START */}
                 <div
-                    className={`transition duration-${transitionDuration}
+                    className={`transition duration-700
                         flex flex-col items-center justify-center 
                         ${isHidden ? "opacity-0" : "opacity-100"}
                     `}
@@ -71,23 +68,23 @@ export default function Home() {
                                 left-0 top-0 -z-10"
                         >
                             <div
-                                className={`group-hover:bg-[#ff0050] w-1/6 h-full transition duration-${transitionDuration}`}
+                                className={`group-hover:bg-[#ff0050] w-1/6 h-full transition duration-700`}
                             />
                             <div
-                                className={`group-hover:bg-[#000000] w-4/6 h-full transition duration-${transitionDuration}`}
+                                className={`group-hover:bg-[#000000] w-4/6 h-full transition duration-700`}
                             >
                                 <div
-                                    className={`group-hover:bg-[#ff0050] w-full h-1/6 transition duration-${transitionDuration}`}
+                                    className={`group-hover:bg-[#ff0050] w-full h-1/6 transition duration-700`}
                                 />
                                 <div
-                                    className={`group-hover:bg-[#000000] w-full h-4/6 transition duration-${transitionDuration}`}
+                                    className={`group-hover:bg-[#000000] w-full h-4/6 transition duration-700`}
                                 />
                                 <div
-                                    className={`group-hover:bg-[#00f2ea] w-full h-1/6 transition duration-${transitionDuration}`}
+                                    className={`group-hover:bg-[#00f2ea] w-full h-1/6 transition duration-700`}
                                 />
                             </div>
                             <div
-                                className={`group-hover:bg-[#00f2ea] w-1/6 h-full transition duration-${transitionDuration}`}
+                                className={`group-hover:bg-[#00f2ea] w-1/6 h-full transition duration-700`}
                             ></div>
                         </div>
                         {/* Demo Button Background - END */}
