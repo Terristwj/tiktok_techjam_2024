@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import { getSigner, getRecommendationLoggerContract } from '../utils/ethereum';
 import RecommendationLoggerABI from '../../../contracts/RecommendationLogger.json'; // Ensure you have the ABI file
 import { ethers } from "ethers";
+import { Web3 } from "web3";
 
 export default function Home() {
     const router = useRouter();
     const [account, setAccount] = useState<string | null>(null);
+    const web3 = new Web3(window.ethereum);
+    // const contract = new web3.eth.Contract(RecommendationLoggerABI, "0x888e2054bD09599FDeA97A564b90667098CE9f92")
 
     useEffect(() => {
         const checkIfWalletIsConnected = async () => {
@@ -42,8 +45,10 @@ export default function Home() {
         }
 
         const signer = await getSigner();
-        const contractAddress = '0x888e2054bD09599FDeA97A564b90667098CE9f92'; // Replace with your contract address
-        const contract = getRecommendationLoggerContract(signer, contractAddress, RecommendationLoggerABI);
+        console.log(signer)
+        const contractAddress = "0x888e2054bD09599FDeA97A564b90667098CE9f92"; // Replace with your contract address
+        const contract = getRecommendationLoggerContract(signer, contractAddress, RecommendationLoggerABI.abi);
+        console.log(contract)
 
         try {
             const recommendationHash = ethers.keccak256(ethers.toUtf8Bytes("Example Recommendation"));
