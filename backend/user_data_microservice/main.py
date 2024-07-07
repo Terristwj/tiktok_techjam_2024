@@ -16,14 +16,17 @@ CORS(app)
 def get_recommendation(personId):
     # example_personIDs = ["a2_9r", "a3536363773", "mybeautifulfantasy"]
     videos = get_recommendation_videos(personId)
-    return jsonify({
+    data = {
         'personId': personId,
         'recommendations': videos
-    })
+    }
+    print(f"\n\nPassing data:\n\n{data}\n\n")
+    return jsonify(data)
 
 # Check health
 @app.route("/api/health", methods=['GET'])
 def check_health():
+    print("\n\nFlask health: OKAY\n\n")
     return jsonify({
         'health': "OKAY",
     })

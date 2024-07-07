@@ -28,6 +28,7 @@ export default function LoginLayout({
     const [shownError, setShownError] = useState(false);
 
     const [videoURLs, setVideoURLs] = useState<string[]>([]);
+    const [isRetrieved, setIsRetrieved] = useState(false);
 
     // Check if user is logged in
     if (typeof localStorage !== "undefined") {
@@ -40,7 +41,12 @@ export default function LoginLayout({
             }
         }
         // Else if logged in, fetch recommendations
-        else if (localStorage.getItem("accountId") && videoURLs.length === 0) {
+        else if (
+            localStorage.getItem("accountId") &&
+            videoURLs.length === 0 &&
+            !isRetrieved
+        ) {
+            setIsRetrieved(true);
             const accountId = localStorage.getItem("accountId")!;
             const URL = `${NEXT_API_BASE_URL}/demo/api/recommendations/${accountId}`;
 
