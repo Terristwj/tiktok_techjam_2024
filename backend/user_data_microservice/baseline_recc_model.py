@@ -3,6 +3,21 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from scipy.sparse import hstack
+
+# Generate a random key for XOR encryption
+np.random.seed(42)
+key = np.random.randint(0, 256, size=(1,), dtype=np.uint8)
+
+# Function to encrypt a NumPy array
+def encrypt_array(array, key):
+    encrypted_array = np.bitwise_xor(array.astype(np.uint8), key)
+    return encrypted_array
+
+# Function to decrypt a NumPy array
+def decrypt_array(encrypted_array, key):
+    decrypted_array = np.bitwise_xor(encrypted_array, key)
+    return decrypted_array.astype(np.float64)
 
 def encode_categorical_data(users_df):
     label_encoders = {}
@@ -12,7 +27,7 @@ def encode_categorical_data(users_df):
         label_encoders[column] = le
     return users_df
 
-def calculate_interaction_strength(users_df):
+def create_interaction_strength(users_df):
     # Define a function to calculate interaction strength
     def calculate_interaction_strength(row):
         return row['awg_engagement_rate'] + row['comment_engagement_rate'] + row['like_engagement_rate']
@@ -32,13 +47,24 @@ def calculate_interaction_strength(users_df):
 
 users_df = pd.read_csv('./data/TikTok profiles dataset (Public web data).csv')
 users_df = encode_categorical_data(users_df)
-users_df = calculate_interaction_strength(users_df)
+users_df = create_interaction_strength(users_df)
 
+# Encrypt numerical features
+numerical_features = users_df[['awg_engagement_rate', 'comment_engagement_rate', 'like_engagement_rate', 'followers', 'following', 'likes', 'videos_count']].values
+encrypted_numerical_features = np.array([encrypt_array(row, key) for row in numerical_features])
+
+# Add encrypted features to DataFrame
+users_df_encrypted = users_df.copy()
+users_df_encrypted[['awg_engagement_rate', 'comment_engagement_rate', 'like_engagement_rate', 'followers', 'following', 'likes', 'videos_count']] = encrypted_numerical_features
 tfidf_vectorizer = TfidfVectorizer(stop_words='english')
 tfidf_matrix = tfidf_vectorizer.fit_transform(users_df['combined_features'])
 
-# Compute cosine similarity matrix
-cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+# Decrypt numerical features for similarity calculation
+decrypted_numerical_features = np.array([decrypt_array(row, key) for row in encrypted_numerical_features])
+combined_features_matrix = hstack([tfidf_matrix, decrypted_numerical_features])
+
+# Compute cosine similarity matrix on encrypted data
+cosine_sim = cosine_similarity(combined_features_matrix)
 
 # Function to get recommendations based on a given person's interactions
 def get_recommendations(person_id, num_recommendations=5):
@@ -58,9 +84,9 @@ def get_recommendation_videos(person_id, num_recommendations=5):
 
     return final_recommendations
 
-# recommendations = get_recommendations('a2_9r')
-# recommendations = get_recommendations("a3536363773")
+# recommendations = get_recommendation_videos('a2_9r')
+# recommendations = get_recommendation_videos("a3536363773")
 # recommendations = get_recommendation_videos("mybeautifulfantasy")
 
 # First recommendation
-# print(recommendations, len(recommendations["top_videos"]))
+# print(recommendations))
