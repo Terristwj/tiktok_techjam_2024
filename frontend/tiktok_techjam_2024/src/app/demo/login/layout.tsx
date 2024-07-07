@@ -6,7 +6,7 @@ import Login from "./page";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { initialFormState, formState_Set1, formState_Set2 } from "./constants";
+import { initialFormState, formState_Set1, formState_Set2 } from "../constants";
 
 const darkTheme = createTheme({
     palette: {
@@ -24,14 +24,13 @@ export default function LoginLayout({
 }) {
     const router = useRouter();
     const [isHidden, setIsHidden] = useState(true);
-    const [isBackClicked, setIsBackClicked] = useState(false);
-
+    const [isNavigatingOut, setIsNavigatingOut] = useState(false);
     const [formState, setFormState] = useState<any>(initialFormState);
 
     // For the fade effect
     const timeoutDuration = 700;
 
-    if (isHidden && !isBackClicked) {
+    if (isHidden && !isNavigatingOut) {
         setTimeout(() => {
             setIsHidden(false);
         }, timeoutDuration);
@@ -39,7 +38,7 @@ export default function LoginLayout({
 
     const handleBackClick = () => {
         setIsHidden(true);
-        setIsBackClicked(true);
+        setIsNavigatingOut(true);
 
         setTimeout(() => {
             router.push("/");
@@ -101,7 +100,7 @@ export default function LoginLayout({
                             hover:bg-gray-200 hover:text-black
                             transition duration-300"
                         onClick={handleBackClick}
-                        disabled={isBackClicked}
+                        disabled={isNavigatingOut}
                     >
                         Back
                     </button>
@@ -113,7 +112,7 @@ export default function LoginLayout({
                                 transition duration-300"
                             name="reset"
                             onClick={switchDataSet}
-                            disabled={isBackClicked}
+                            disabled={isNavigatingOut}
                         >
                             Reset
                         </button>
@@ -124,7 +123,7 @@ export default function LoginLayout({
                                 transition duration-300"
                             name="dataset1"
                             onClick={switchDataSet}
-                            disabled={isBackClicked}
+                            disabled={isNavigatingOut}
                         >
                             Dataset 1
                         </button>
@@ -135,7 +134,7 @@ export default function LoginLayout({
                                 transition duration-300"
                             name="dataset2"
                             onClick={switchDataSet}
-                            disabled={isBackClicked}
+                            disabled={isNavigatingOut}
                         >
                             Dataset 2
                         </button>
@@ -149,6 +148,9 @@ export default function LoginLayout({
                         formState={formState}
                         setFormState={setFormState}
                         handleFormChange={handleFormChange}
+                        setIsHidden={setIsHidden}
+                        setIsNavigatingOut={setIsNavigatingOut}
+                        timeoutDuration={timeoutDuration}
                     />
                 </main>
             </section>

@@ -21,7 +21,7 @@ export default function Home() {
         setIsDemoClicked(true);
 
         setTimeout(() => {
-            router.push("/login");
+            router.push("/demo/login");
         }, timeoutDuration);
     };
 

@@ -1,5 +1,8 @@
 import deepCopy from "../utils/deepCopy";
 
+export const FLASK_API_BASE_URL = "http://127.0.0.1:5001";
+export const NEXT_API_BASE_URL = "http://localhost:3000";
+
 export const initialFormState = () =>
     deepCopy({
         accountId: {
@@ -36,6 +39,8 @@ export const initialFormState = () =>
             required: false,
         },
     });
+
+export const allowedAccountIds = ["crystaalbleee", "haayhay"];
 
 export const formState_Set1 = () =>
     deepCopy({
