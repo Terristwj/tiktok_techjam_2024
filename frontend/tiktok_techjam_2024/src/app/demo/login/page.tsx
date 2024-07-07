@@ -85,7 +85,7 @@ export default function Login({
             }
             // API Error
             else {
-                errorMessage = `${response.status}: An error occurred`;
+                errorMessage = `Error ${response.status}: Please check API is running`;
             }
         }
 
@@ -96,7 +96,11 @@ export default function Login({
             Object.keys(formState).forEach((key) => {
                 const field = formState[key];
                 if (field.error) {
-                    if (field.value === "" || field.label === "Account Id") {
+                    if (
+                        field.value === "" ||
+                        (field.label === "Account Id" &&
+                            !allowedAccountIds.includes(field.value))
+                    ) {
                         field.error.isError = true;
                     }
                     field.error.showError = true;
@@ -104,6 +108,7 @@ export default function Login({
                 newFormState[key] = field;
             });
             setFormState(newFormState);
+
             setIsLoginLoading(false);
 
             setTimeout(() => {
